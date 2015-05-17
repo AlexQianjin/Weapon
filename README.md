@@ -1,0 +1,2 @@
+# Weapon
+Just for fun
