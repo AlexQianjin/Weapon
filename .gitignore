@@ -2,5 +2,7 @@ Weapon/.vs
 Weapon/artifacts/obj
 Weapon/artifacts/bin
 Weapon/src/Web/bower_components
+Weapon/src/Web/node_modules/gulp
+Weapon/src/Web/node_modules/rimraf
 Weapon/src/Web/wwwroot/lib
 Weapon/src/Web/Web.xproj.user
