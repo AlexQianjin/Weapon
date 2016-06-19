@@ -1,4 +1,7 @@
 # Dependency directory
 node_modules
 
+# nodemon start batch file
+nodemonstart.bat
+
 .env
