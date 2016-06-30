@@ -15,6 +15,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^2.13.6",
     "nodemon": "^1.9.2"
   }
 }
