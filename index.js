@@ -62,10 +62,12 @@ var routes = function (app) {
     app.post('/login',
         passport.authenticate('bearer', { session: false }),
         function (req, res) {
+            console.log(`${req.body.username} + ${req.body.password}`);
             var username = req.body.username.toLowerCase();
             var password = req.body.password.toLowerCase();
+            console.log(encrypt(password));// "sarah" -> dd0ea4c984 
             userDb.find({
-                login: username,
+                username: username,
                 password: encrypt(password)
             },
                 { password: 0 },
