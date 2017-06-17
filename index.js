@@ -9,7 +9,7 @@ var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users');
+// mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users');
 
 var appToken = '1234567890';
 passport.use(new Strategy(
