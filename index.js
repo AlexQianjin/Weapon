@@ -11,6 +11,7 @@ app.use(cors({ credentials: true, origin: true }));
 
 // mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users');
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02');
+console.log(app.get('env'));
 
 var appToken = '1234567890';
 passport.use(new Strategy(
