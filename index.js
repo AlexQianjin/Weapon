@@ -48,6 +48,10 @@ function decrypt(text) {
     return dec;
 }
 
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/app_client/index.html')
+})
+
 var routes = function (app) {
     app.use(bodyparser.json());
     app.get('/',
