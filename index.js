@@ -3,8 +3,11 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var mongoose = require('mongoose');
 var cors = require('cors');
+var jwt = require('jsonwebtoken');
 var passport = require('passport');
-var Strategy = require('passport-http-bearer').Strategy;
+// var Strategy = require('passport-http-bearer').Strategy;
+var JwtBearerStrategy = require('passport-http-jwt-bearer');
+
 var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
@@ -13,16 +16,34 @@ app.use(cors({ credentials: true, origin: true }));
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02');
 console.log(app.get('env'));
 
-var appToken = '1234567890';
-passport.use(new Strategy(
-    function (token, cb) {
-        //console.log(token);
-        if (token === appToken) {
-            return cb(null, true);
-        }
-        return cb(null, false);
-    })
-);
+// var appToken = '1234567890';
+// passport.use(new Strategy(
+//     function (token, cb) {
+//         //console.log(token);
+//         if (token === appToken) {
+//             return cb(null, true);
+//         }
+//         return cb(null, false);
+//     })
+// );
+
+var secretOrPublicKey = 'secret';
+
+ passport.use(new JwtBearerStrategy(
+   secretOrPublicKey,
+   function(token, done) {
+     User.findById(token.sub, function (err, user) {
+       if (err) { return done(err); }
+       if (!user) { return done(null, false); }
+       return done(null, user, token);
+     });
+   }
+ ));
+
+var token = jwt.sign({ sub: 'bar', issuer: 'accounts.examplesoft.com', audience: 'yoursite.net' }, secretOrPublicKey);
+console.log(token);
+var decoded = jwt.verify(token, secretOrPublicKey);
+console.log(decoded.sub);
 
 var userSchema = new mongoose.Schema({
     id: String,
@@ -60,7 +81,7 @@ var routes = function (app) {
         });
 
     app.get('/login',
-        passport.authenticate('bearer', { session: false }),
+        passport.authenticate('jwt-bearer', { session: false }),
         function (req, res) {
             res.json(({ "message": "GET is not allowed. Please POST request with username and password." }));
         });
@@ -71,7 +92,7 @@ var routes = function (app) {
             console.log(`${req.body.username} + ${req.body.password}`);
             var username = req.body.username.toLowerCase();
             var password = req.body.password.toLowerCase();
-            console.log(encrypt(password));// "sarah" -> dd0ea4c984 
+            console.log(encrypt(password));// "sarah" -> dd0ea4c984 bearer
             userDb.find({
                 username: username,
                 password: encrypt(password)
