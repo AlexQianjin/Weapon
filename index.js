@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 var passport = require('passport');
 // var Strategy = require('passport-http-bearer').Strategy;
 var JwtBearerStrategy = require('passport-http-jwt-bearer');
+var config = require('./config');
 
 var app = express();
 
@@ -26,24 +27,6 @@ console.log(app.get('env'));
 //         return cb(null, false);
 //     })
 // );
-
-var secretOrPublicKey = 'secret';
-
- passport.use(new JwtBearerStrategy(
-   secretOrPublicKey,
-   function(token, done) {
-     User.findById(token.sub, function (err, user) {
-       if (err) { return done(err); }
-       if (!user) { return done(null, false); }
-       return done(null, user, token);
-     });
-   }
- ));
-
-var token = jwt.sign({ sub: 'bar', issuer: 'accounts.examplesoft.com', audience: 'yoursite.net' }, secretOrPublicKey);
-console.log(token);
-var decoded = jwt.verify(token, secretOrPublicKey);
-console.log(decoded.sub);
 
 var userSchema = new mongoose.Schema({
     id: String,
@@ -69,6 +52,24 @@ function decrypt(text) {
     return dec;
 }
 
+passport.use(new JwtBearerStrategy(
+   config.secretOrPublicKey,
+   function(token, done) {
+     userDb.findById(token.sub, function (err, user) {
+       if (err) { return done(err); }
+       if (!user) { return done(null, false); }
+       return done(null, user, token);
+     });
+   }
+ ));
+
+var token = jwt.sign({ sub: 'bar', issuer: config.issuer, audience: config.audience }, config.secretOrPublicKey);
+console.log(token);
+var decoded = jwt.verify(token, config.secretOrPublicKey);
+console.log(decoded.sub);
+
+console.log(encrypt("alex"));
+
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/app_client/index.html')
 })
@@ -86,20 +87,61 @@ var routes = function (app) {
             res.json(({ "message": "GET is not allowed. Please POST request with username and password." }));
         });
 
-    app.post('/login',
-        passport.authenticate('bearer', { session: false }),
-        function (req, res) {
-            console.log(`${req.body.username} + ${req.body.password}`);
-            var username = req.body.username.toLowerCase();
-            var password = req.body.password.toLowerCase();
-            console.log(encrypt(password));// "sarah" -> dd0ea4c984 bearer
-            userDb.find({
+    // app.post('/login',
+    //     passport.authenticate('bearer', { session: false }),
+    //     function (req, res) {
+    //         console.log(`${req.body.username} + ${req.body.password}`);
+    //         var username = req.body.username.toLowerCase();
+    //         var password = req.body.password.toLowerCase();
+    //         console.log(encrypt(password));// "sarah" -> dd0ea4c984 bearer
+    //         userDb.find({
+    //             username: username,
+    //             password: encrypt(password)
+    //         },
+    //             { password: 0 },
+    //             function (err, data) {
+    //                 res.json(data);
+    //             });
+    //     });
+    
+    app.post('/token', function(req, res){
+        console.log(`${req.body.username} + ${req.body.password}`);
+        var username = req.body.username.toLowerCase();
+        var password = req.body.password.toLowerCase();
+        userDb.find({
                 username: username,
                 password: encrypt(password)
             },
                 { password: 0 },
                 function (err, data) {
-                    res.json(data);
+                    if(err){
+                        res.json(err);
+                    }
+                    if(data.length > 0){
+                        let user = data[0];
+                        let token = jwt.sign({ sub: user._id, username: user.username, issuer: config.issuer, audience: config.audience }, config.secretOrPublicKey);
+                        res.json({"access_token": token});
+                    }
+                    else{
+                        res.json({"message": "User doesn't exist!"})
+                    }
+                });
+    });
+
+    app.get('/users',
+        passport.authenticate('jwt-bearer', { session: false }),
+        function (req, res) {
+            userDb.find({
+            }, { password: 0 }, function (err, data) {
+                    if(err){
+                        res.json(err);
+                    }
+                    if(data.length > 0){
+                        res.json(data);
+                    }
+                    else{
+                        res.json({"message": "User doesn't exist!"})
+                    }
                 });
         });
 }
