@@ -13,8 +13,8 @@ var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 
-// mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users');
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users');
+// mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02');
 console.log(app.get('env'));
 
 // var appToken = '1234567890';
@@ -58,6 +58,10 @@ passport.use(new JwtBearerStrategy(
      userDb.findById(token.sub, function (err, user) {
        if (err) { return done(err); }
        if (!user) { return done(null, false); }
+    //    if(token.exp < Math.floor(Date.now() / 1000))
+    //    { 
+    //        return done(null, false, 'Token has expired!');
+    //    }
        return done(null, user, token);
      });
    }
@@ -119,7 +123,12 @@ var routes = function (app) {
                     }
                     if(data.length > 0){
                         let user = data[0];
-                        let token = jwt.sign({ sub: user._id, username: user.username, issuer: config.issuer, audience: config.audience }, config.secretOrPublicKey);
+                        let token = jwt.sign({ sub: user._id, 
+                            username: user.username,
+                            exp: Math.floor(Date.now() / 1000) + (60), 
+                            issuer: config.issuer, 
+                            audience: config.audience 
+                        }, config.secretOrPublicKey);
                         res.json({"access_token": token});
                     }
                     else{
