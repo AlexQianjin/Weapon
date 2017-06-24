@@ -12,6 +12,7 @@ var config = require('./config');
 var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
+app.use(bodyparser.json());
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users');
 // mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02');
@@ -79,7 +80,6 @@ app.get('/', function(req, res) {
 })
 
 var routes = function (app) {
-    app.use(bodyparser.json());
     app.get('/',
         function (req, res) {
             res.json(({ "message": "The current version of this API is v1. Please access by sending a POST request to /v1/login." }));
