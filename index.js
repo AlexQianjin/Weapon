@@ -137,27 +137,29 @@ var routes = function (app) {
                 });
     });
 
-    app.get('/users',
-        passport.authenticate('jwt-bearer', { session: false }),
-        function (req, res) {
-            userDb.find({
-            }, { password: 0 }, function (err, data) {
-                    if(err){
-                        res.json(err);
-                    }
-                    if(data.length > 0){
-                        res.json(data);
-                    }
-                    else{
-                        res.json({"message": "User doesn't exist!"})
-                    }
-                });
-        });
+    // app.get('/users',
+    //     passport.authenticate('jwt-bearer', { session: false }),
+    //     function (req, res) {
+    //         userDb.find({
+    //         }, { password: 0 }, function (err, data) {
+    //                 if(err){
+    //                     res.json(err);
+    //                 }
+    //                 if(data.length > 0){
+    //                     res.json(data);
+    //                 }
+    //                 else{
+    //                     res.json({"message": "User doesn't exist!"})
+    //                 }
+    //             });
+    //     });
 }
 
 var router = express.Router();
 routes(router);
+var user = require('./app_api/routes/users');
 app.use('/v1', router);
+app.use('/v1/users', user);
 
 var port = 5000;
 app.listen(process.env.PORT || port, function () {
