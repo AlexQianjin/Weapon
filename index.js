@@ -14,8 +14,12 @@ var app = express();
 app.use(cors({ credentials: true, origin: true }));
 app.use(bodyparser.json());
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users');
-// mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02');
+var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users';
+if (process.env.NODE_ENV === 'production') {
+    dbURI = process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02';
+}
+mongoose.connect(dbURI);
+console.log(dbURI);
 console.log(app.get('env'));
 
 // var appToken = '1234567890';
