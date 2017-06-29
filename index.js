@@ -8,18 +8,19 @@ var passport = require('passport');
 // var Strategy = require('passport-http-bearer').Strategy;
 var JwtBearerStrategy = require('passport-http-jwt-bearer');
 var config = require('./config');
+require('./app_api/models/db')
 
 var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(bodyparser.json());
 
-var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users';
-if (process.env.NODE_ENV === 'production') {
-    dbURI = process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02';
-}
-mongoose.connect(dbURI);
-console.log(dbURI);
+// var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users';
+// if (process.env.NODE_ENV === 'production') {
+//     dbURI = process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02';
+// }
+// mongoose.connect(dbURI);
+// console.log(dbURI);
 console.log(app.get('env'));
 
 // var appToken = '1234567890';
