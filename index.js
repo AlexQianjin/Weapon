@@ -34,13 +34,6 @@ console.log(app.get('env'));
 //     })
 // );
 
-var userSchema = new mongoose.Schema({
-    id: String,
-    username: String,
-    password: String
-});
-var userDb = mongoose.model('users', userSchema);
-
 var crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
     password = '2vdbhs4Gttb2';
@@ -57,21 +50,6 @@ function decrypt(text) {
     dec += decipher.final('utf8');
     return dec;
 }
-
-passport.use(new JwtBearerStrategy(
-   config.secretOrPublicKey,
-   function(token, done) {
-     userDb.findById(token.sub, function (err, user) {
-       if (err) { return done(err); }
-       if (!user) { return done(null, false); }
-    //    if(token.exp < Math.floor(Date.now() / 1000))
-    //    { 
-    //        return done(null, false, 'Token has expired!');
-    //    }
-       return done(null, user, token);
-     });
-   }
- ));
 
 var token = jwt.sign({ sub: 'bar', issuer: config.issuer, audience: config.audience }, config.secretOrPublicKey);
 console.log(token);
