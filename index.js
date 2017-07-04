@@ -91,34 +91,34 @@ var routes = function (app) {
     //             });
     //     });
     
-    app.post('/token', function(req, res){
-        console.log(`${req.body.username} + ${req.body.password}`);
-        var username = req.body.username.toLowerCase();
-        var password = req.body.password.toLowerCase();
-        userDb.find({
-                username: username,
-                password: encrypt(password)
-            },
-                { password: 0 },
-                function (err, data) {
-                    if(err){
-                        res.json(err);
-                    }
-                    if(data.length > 0){
-                        let user = data[0];
-                        let token = jwt.sign({ sub: user._id, 
-                            username: user.username,
-                            exp: Math.floor(Date.now() / 1000) + (60), 
-                            issuer: config.issuer, 
-                            audience: config.audience 
-                        }, config.secretOrPublicKey);
-                        res.json({"access_token": token});
-                    }
-                    else{
-                        res.json({"message": "User doesn't exist!"})
-                    }
-                });
-    });
+    // app.post('/token', function(req, res){
+    //     console.log(`${req.body.username} + ${req.body.password}`);
+    //     var username = req.body.username.toLowerCase();
+    //     var password = req.body.password.toLowerCase();
+    //     userDb.find({
+    //             username: username,
+    //             password: encrypt(password)
+    //         },
+    //             { password: 0 },
+    //             function (err, data) {
+    //                 if(err){
+    //                     res.json(err);
+    //                 }
+    //                 if(data.length > 0){
+    //                     let user = data[0];
+    //                     let token = jwt.sign({ sub: user._id, 
+    //                         username: user.username,
+    //                         exp: Math.floor(Date.now() / 1000) + (60), 
+    //                         issuer: config.issuer, 
+    //                         audience: config.audience 
+    //                     }, config.secretOrPublicKey);
+    //                     res.json({"access_token": token});
+    //                 }
+    //                 else{
+    //                     res.json({"message": "User doesn't exist!"})
+    //                 }
+    //             });
+    // });
 
     // app.get('/users',
     //     passport.authenticate('jwt-bearer', { session: false }),
@@ -140,9 +140,8 @@ var routes = function (app) {
 
 var router = express.Router();
 routes(router);
-var user = require('./app_api/routes/users');
+var user = require('./app_api/routes/index');
 app.use('/v1', router);
-app.use('/v1/users', user);
 
 var port = 5000;
 app.listen(process.env.PORT || port, function () {
