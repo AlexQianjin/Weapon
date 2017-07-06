@@ -8,7 +8,7 @@ var passport = require('passport');
 // var Strategy = require('passport-http-bearer').Strategy;
 var JwtBearerStrategy = require('passport-http-jwt-bearer');
 var config = require('./config');
-require('./app_api/models/db')
+require('./app_api/models/db');
 
 var app = express();
 
@@ -34,29 +34,10 @@ console.log(app.get('env'));
 //     })
 // );
 
-var crypto = require('crypto'),
-    algorithm = 'aes-256-ctr',
-    password = '2vdbhs4Gttb2';
-
-function encrypt(text) {
-    var cipher = crypto.createCipher(algorithm, password)
-    var crypted = cipher.update(text, 'utf8', 'hex')
-    crypted += cipher.final('hex');
-    return crypted;
-}
-function decrypt(text) {
-    var decipher = crypto.createDecipher(algorithm, password)
-    var dec = decipher.update(text, 'hex', 'utf8')
-    dec += decipher.final('utf8');
-    return dec;
-}
-
 var token = jwt.sign({ sub: 'bar', issuer: config.issuer, audience: config.audience }, config.secretOrPublicKey);
 console.log(token);
 var decoded = jwt.verify(token, config.secretOrPublicKey);
 console.log(decoded.sub);
-
-console.log(encrypt("alex"));
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/app_client/index.html')
@@ -138,10 +119,10 @@ var routes = function (app) {
     //     });
 }
 
-var router = express.Router();
-routes(router);
-var user = require('./app_api/routes/index');
-app.use('/v1', router);
+// var router = express.Router();
+// routes(router);
+var routesApi = require('./app_api/routes/index');
+app.use('/v1', routesApi);
 
 var port = 5000;
 app.listen(process.env.PORT || port, function () {
