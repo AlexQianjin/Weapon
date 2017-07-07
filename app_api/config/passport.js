@@ -2,9 +2,9 @@ var passport = require('passport');
 var JwtBearerStrategy = require('passport-http-jwt-bearer');
 var mongoose = require('mongoose');
 var config = require('../../config');
-// var userDb = mongoose.model('users', userSchema);
-var User = mongoose.model('users');
-var userDb = new User();
+var userDb = mongoose.model('users');
+// var User = mongoose.model('users');
+// var userDb = new User();
 
 passport.use(new JwtBearerStrategy(
    config.secretOrPublicKey,
