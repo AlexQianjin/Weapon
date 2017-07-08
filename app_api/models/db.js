@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
-var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users';
+// var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users';
+var dbURI = process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02';
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI || 'mongodb://alexqintest:alexqintest@ds127962.mlab.com:27962/heroku_kr6x4m02';
 }
