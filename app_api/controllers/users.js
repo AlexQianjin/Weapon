@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var userDb = mongoose.model('users');
+var utils = require('../utils/utils');
 
 var sendJSONresponse = function(res, status, content) {
   res.status(status);
@@ -12,8 +13,10 @@ var sendJSONresponse = function(res, status, content) {
 // }
 
 module.exports.getUser = function (req, res) {
-    var user = {"id":3, "name":"AlexQin"};
-    sendJSONresponse(res, 200, user);
+    let password = utils.encrypt('alex');
+    let de = utils.decrypt(password);
+    var user = {"id":3, "name":"AlexQin", "password":password, "de": de};
+    utils.sendJSONresponse(res, 200, user);
 }
 
 module.exports.getUsers = function (req, res) {
