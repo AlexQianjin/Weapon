@@ -1,5 +1,6 @@
 'use strict';
 var express = require('express');
+var path = require('path');
 var bodyparser = require('body-parser');
 var mongoose = require('mongoose');
 var cors = require('cors');
@@ -14,6 +15,7 @@ var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(bodyparser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost/loginapp/users';
 // if (process.env.NODE_ENV === 'production') {
