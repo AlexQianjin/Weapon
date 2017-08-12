@@ -3,7 +3,6 @@ var jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var userDb = mongoose.model('users');
 var config = require('../../config');
-// var userDb = new User();
 
 var sendJSONresponse = function (res, status, content) {
     res.status(status);
