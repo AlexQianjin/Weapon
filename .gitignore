@@ -5,3 +5,6 @@ node_modules
 nodemonstart.bat
 
 .env
+
+# npm package
+package-lock.json
