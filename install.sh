@@ -5,6 +5,21 @@
 # SOMEVAR='text stuff'  
 # echo "$SOMEVAR"
 
+###########################
+#
+#Install Docker CE
+#
+###########################
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+sudo apt-get update
+
+apt-cache policy docker-ce
+
+sudo apt-get install -y docker-ce
 
 ###########################
 #
@@ -12,17 +27,18 @@
 #
 ###########################
 
-echo "Install Nodejs"
+# echo "Install Nodejs"
 
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+# curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 
-sudo apt-get install -y nodejs
+# sudo apt-get install -y nodejs
 
 ###########################
 #
 #Install MongoDB
 #
 ###########################
+
 # echo "Install MongoDB"
 
 # echo "add keyserver"
