@@ -56,3 +56,15 @@ module.exports.getToken = function (req, res) {
             }
         });
 };
+
+module.exports.getTempToken = function (req, res) {
+    let user = {username: 'alex'};
+    let token = jwt.sign({
+        sub: user._id,
+        username: user.username,
+        exp: Math.floor(Date.now() / 1000) + (60),
+        issuer: config.issuer,
+        audience: config.audience
+    }, config.secretOrPublicKey);
+    res.json({ "access_token": token });
+};

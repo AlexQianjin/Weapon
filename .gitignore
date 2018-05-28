@@ -8,3 +8,6 @@ nodemonstart.bat
 
 # npm package
 package-lock.json
+
+# VS Code
+.vscode

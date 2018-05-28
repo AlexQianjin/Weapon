@@ -8,7 +8,9 @@ var ctrlAuth = require('../controllers/authentication');
 
 router.get('/user', ctrlUsers.getUser);
 router.get('/users', passport.authenticate('jwt-bearer', { session: false }), ctrlUsers.getUsers);
+// router.get('/users', ctrlUsers.getUsers);
 
 router.post('/token', ctrlAuth.getToken);
+router.get('/token', ctrlAuth.getTempToken);
 
 module.exports = router;
