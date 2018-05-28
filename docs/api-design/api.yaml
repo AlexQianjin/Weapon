@@ -1,0 +1,64 @@
+swagger: '2.0'
+info:
+  title: Weapon API
+  description: Move your app forward with the Weapon API
+  version: "1.0.0"
+# the domain of the service
+host: localhost:5000
+# array of all schemes that your API supports
+schemes:
+  - http
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+security:
+  - weapon: []
+paths:
+  /users:
+    get:
+      summary: Users
+      description: |
+        The Users endpoint returns information about the Users.
+      tags:
+        - Users
+      responses:
+        200:
+          description: An array of users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+securityDefinitions:
+  weapon:
+    type: "oauth2"
+    authorizationUrl: "http://localhost:5000/v1/token"
+    flow: "implicit"        
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier.
+      username:
+        type: string
+        description: Username of user.
+      password:
+        type: string
+        description: Password of user.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
