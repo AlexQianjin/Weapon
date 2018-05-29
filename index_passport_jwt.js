@@ -36,7 +36,7 @@ app.use(bodyparser.urlencoded({
 app.use(bodyparser.json());
 
 var jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = 'tasmanianDevil';
 
 var strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {

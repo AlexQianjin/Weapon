@@ -28,7 +28,7 @@ function decrypt(text) {
 }
 
 module.exports.getToken = function (req, res) {
-    console.log(`${req.body.username} + ${req.body.password}`);
+	console.log(`${req.body.username} + ${req.body.password}`); // "sarah" -> dd0ea4c984 bearer
     var username = req.body.username.toLowerCase();
     var password = req.body.password.toLowerCase();
     userDb.find({
@@ -48,7 +48,7 @@ module.exports.getToken = function (req, res) {
                     exp: Math.floor(Date.now() / 1000) + (60),
                     issuer: config.issuer,
                     audience: config.audience
-                }, config.secretOrPublicKey);
+                }, config.secretOrKey);
                 res.json({ "access_token": token });
             }
             else {
@@ -65,6 +65,6 @@ module.exports.getTempToken = function (req, res) {
         exp: Math.floor(Date.now() / 1000) + (60),
         issuer: config.issuer,
         audience: config.audience
-    }, config.secretOrPublicKey);
+    }, config.secretOrKey);
     res.json({ "access_token": token });
 };

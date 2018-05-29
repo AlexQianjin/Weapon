@@ -1,5 +1,5 @@
 module.exports = {
-    secretOrPublicKey : "AlexGoGoGo",
+    secretOrKey : "AlexGoGoGo",
     audience : "alexqin.cn",
     issuer : "account.alexqin.cn"
 };
