@@ -58,7 +58,7 @@ module.exports.getToken = function (req, res) {
 };
 
 module.exports.getTempToken = function (req, res) {
-    let user = {username: 'alex'};
+    let user = {_id: '5944aeca6f6cf104a61bacc4', username: 'alex'};
     let token = jwt.sign({
         sub: user._id,
         username: user.username,
