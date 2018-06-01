@@ -10,7 +10,7 @@ schemes:
   - http
   - https
 # will be prefixed to all paths
-basePath: /v1
+basePath: /api/v1
 produces:
   - application/json
 security:

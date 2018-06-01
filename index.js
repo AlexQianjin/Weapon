@@ -28,7 +28,7 @@ app.get('/', function(req, res) {
 });
 
 var routesApi = require('./app_api/routes/index');
-app.use('/v1', routesApi);
+app.use('/api/v1', routesApi);
 
 var port = 5000;
 app.listen(process.env.PORT || port, function () {
