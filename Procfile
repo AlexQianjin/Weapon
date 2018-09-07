@@ -1,2 +1,2 @@
-release: ./build-client.sh
+release: ./build.sh
 web: npm start
