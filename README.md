@@ -1,2 +1,2 @@
 # Weapon
-Learn to use nodejs, express, angular2 and mongodb
+Learn to use nodejs, express, react and mongodb
