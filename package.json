@@ -13,7 +13,10 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+	"dev": "nodemon index.js",
+	"postinstall": "cd ./client && npm install && npm run build",
+	"heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+    "heroku-postbuild": "echo This runs afterwards."
   },
   "dependencies": {
     "body-parser": "~1.18.2",
