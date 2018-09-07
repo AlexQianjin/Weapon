@@ -7,13 +7,13 @@ var cors = require('cors');
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var config = require('./config');
-require('./app_api/models/db');
+require('./server/models/db');
 
 var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(bodyparser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 console.log(app.get('env'));
 
@@ -23,11 +23,7 @@ console.log(app.get('env'));
 // var decoded = jwt.verify(token, config.secretOrKey);
 // console.log(decoded.sub);
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/app_client/index.html')
-});
-
-var routesApi = require('./app_api/routes/index');
+var routesApi = require('./server/routes/index');
 app.use('/api/v1', routesApi);
 
 var port = 5000;
