@@ -8,8 +8,8 @@
     "url": "http://alexqin.cn"
   },
   "engines": {
-	"node": "9.5.0",
-	"npm": "5.6.0"
+	"node": "10.0.0",
+	"npm": "6.0.1"
   },
   "scripts": {
     "start": "node index.js",
