@@ -11,6 +11,7 @@ RUN \
   echo "nameserver 8.8.8.8" >> /etc/resolv.conf && \
   apt-get update && \
   apt-get install -y gnupg && \
+  apt-get install -y curl && \
   curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
   apt-get install -y nodejs 
 COPY ./ /home/weapon
