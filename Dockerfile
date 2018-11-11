@@ -17,7 +17,8 @@ RUN \
 COPY ./ /home/weapon
 WORKDIR /home/weapon
 # Define default command.
-CMD ["npm install && npm start"]
+# CMD ["npm install && npm start"]
+CMD "npm install && npm start"
 
 # Expose ports.
 EXPOSE 3000
