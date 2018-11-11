@@ -6,7 +6,7 @@
 FROM ubuntu
 # Maintainer: qianjin.qin@qq.com
 MAINTAINER qianjin.qin@qq.com
-# Install Nginx.
+# Install nodejs.
 RUN \
   echo "nameserver 8.8.8.8" >> /etc/resolv.conf && \
   apt-get update && \
@@ -16,7 +16,9 @@ RUN \
   apt-get install -y nodejs 
 COPY ./ /home/weapon
 WORKDIR /home/weapon
-RUN npm install
+RUN \
+  npm install && \
+  npm run postinstall
 # Define default command.
 # CMD ["npm install && npm start"]
 CMD ["node", "index.js"]
