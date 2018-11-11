@@ -16,9 +16,10 @@ RUN \
   apt-get install -y nodejs 
 COPY ./ /home/weapon
 WORKDIR /home/weapon
+RUN npm install
 # Define default command.
 # CMD ["npm install && npm start"]
-CMD "npm install && npm start"
+CMD ["node", "index.js"]
 
 # Expose ports.
 EXPOSE 3000
