@@ -8,27 +8,28 @@
     "url": "http://alexqin.cn"
   },
   "engines": {
-	"node": "10.0.0",
-	"npm": "6.0.1"
+    "node": "10.0.0",
+    "npm": "6.0.1"
   },
   "scripts": {
     "start": "node index.js",
-	"dev": "nodemon index.js",
-	"postinstall": "cd ./client && npm install && npm run build",
-	"heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+    "dev": "nodemon index.js",
+    "postinstall": "cd ./client && npm install && npm run build",
+    "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
     "heroku-postbuild": "echo This runs afterwards."
   },
   "dependencies": {
     "body-parser": "~1.18.2",
     "bulma": "^0.7.1",
     "cookie-parser": "~1.4.3",
-    "cors": "^2.8.4",
-    "debug": "~3.1.0",
-    "express": "~4.16.3",
+    "cors": "^2.8.5",
+    "debug": "~4.1.0",
+    "dotenv": "^6.1.0",
+    "express": "~4.16.4",
     "jsonwebtoken": "^8.3.0",
-    "lodash": "^4.17.10",
-    "mongoose": "^5.2.13",
-    "morgan": "~1.9.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.3.11",
+    "morgan": "~1.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pug": "~2.0.3",
