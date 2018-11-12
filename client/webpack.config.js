@@ -45,7 +45,16 @@ module.exports = {
 	mode: 'development',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
-    compress: true,
+		compress: true,
+		// proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:3000',
+    //     pathRewrite: {'^/api' : 'api'}
+    //   }
+		// },
+		proxy: {
+      '/api': 'http://localhost:3000'
+    },
     port: 9000
   }
 };

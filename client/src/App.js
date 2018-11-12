@@ -11,7 +11,7 @@ class App extends React.Component {
 
     componentDidMount() {
         console.log('App did mount');
-        axios.get('http://localhost:3000/api/v1/user')
+        axios.get('/api/v1/user')
             .then(response => {
                 let data = response.data[0];
                 this.setState({name: data.username, data: data});
