@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  db:
+    build: ./scripts/mongo
+  web:
+    build: ./scripts/web
+    ports:
+     - "3000:3000"
+  nginx:
+    build: ./scripts/nginx
