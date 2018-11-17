@@ -8,7 +8,7 @@ FROM ubuntu
 MAINTAINER qianjin.qin@qq.com
 # Install nodejs.
 RUN \
-  echo "nameserver 8.8.8.8" >> /etc/resolv.conf && \
+#  echo "nameserver 8.8.8.8" >> /etc/resolv.conf && \
   apt-get update && \
   apt-get install -y gnupg && \
   apt-get install -y curl && \
