@@ -1,0 +1,45 @@
+{
+  "name": "weapon-api",
+  "version": "0.0.1",
+  "private": true,
+  "author": {
+    "name": "Alex Qin",
+    "email": "qianjin.qin@qq.com",
+    "url": "http://alexqin.cn"
+  },
+  "engines": {
+    "node": "10.0.0",
+    "npm": "6.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon index.js",
+    "test": "jest",
+    "postinstall": "cd ./client && npm install --dev && npm run build",
+    "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+    "heroku-postbuild": "echo This runs afterwards."
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~4.1.0",
+    "dotenv": "^6.1.0",
+    "express": "~4.16.4",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.3.11",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pug": "~2.0.3",
+    "serve-favicon": "~2.5.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4"
+  }
+}
