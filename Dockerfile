@@ -18,6 +18,7 @@ RUN \
 COPY . /home/weapon
 WORKDIR /home/weapon
 RUN \
+  cd server && \
   npm install && \
   npm run postinstall
 # Define default command.
