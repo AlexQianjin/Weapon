@@ -8,13 +8,13 @@ var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var config = require('./config');
 require('dotenv').config();
-require('./server/models/db');
+require('./src/models/db');
 
 var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(bodyparser.json());
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, '../', 'client', 'build')));
 
 console.log('process.env.NODE_ENV = ' + process.env.NODE_ENV);
 console.log(`environment from express: ${app.get('env')}`);
@@ -25,7 +25,7 @@ console.log(`environment from express: ${app.get('env')}`);
 // var decoded = jwt.verify(token, config.secretOrKey);
 // console.log(decoded.sub);
 
-var routesApi = require('./server/routes/index');
+var routesApi = require('./src/routes/index');
 app.use('/api/v1', routesApi);
 
 var port = 5000;
