@@ -23,7 +23,7 @@ RUN \
   npm run postinstall
 # Define default command.
 # CMD ["npm install && npm start"]
-CMD ["node", "index.js"]
+CMD ["node", "server/index.js"]
 
 # Expose ports.
 EXPOSE 3000
