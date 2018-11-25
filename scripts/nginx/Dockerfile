@@ -8,6 +8,7 @@ FROM ubuntu
 MAINTAINER qianjin.qin@qq.com
 # Install Nginx.
 RUN \
+#  echo "nameserver 8.8.8.8" >> /etc/resolv.conf && \
 #  echo "deb http://archive.ubuntu.com/ubuntu/ bionic main universe" >> /etc/apt/sources.list && \
   apt-get update && \
   apt-get install -y nginx && \
