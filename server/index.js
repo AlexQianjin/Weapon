@@ -29,9 +29,8 @@ var routesApi = require('./src/routes/index');
 app.use('/api/v1', routesApi);
 
 var port = 5000;
-app.listen(process.env.PORT || port, function () {
-    console.log('server listening on port ' + (process.env.PORT ||
-        port));
+app.listen(process.env.PORT || port, function() {
+	console.log('server listening on port ' + (process.env.PORT || port));
 });
 
 // var routes = function (app) {
