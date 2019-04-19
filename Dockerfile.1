@@ -19,7 +19,8 @@ COPY . /home/weapon
 WORKDIR /home/weapon
 RUN \
   cd server && \
-  npm install
+  npm install && \
+  npm run postinstall
 # Define default command.
 # CMD ["npm install && npm start"]
 CMD ["node", "server/index.js"]
