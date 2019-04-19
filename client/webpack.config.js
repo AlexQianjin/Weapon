@@ -21,7 +21,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build')
 	},
 	plugins: [
-		new CleanWebpackPlugin(pathsToClean, cleanOptions),
+		new CleanWebpackPlugin(cleanOptions),
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
 			inject: false

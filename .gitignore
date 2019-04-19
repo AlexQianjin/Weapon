@@ -11,3 +11,5 @@ package-lock.json
 
 # VS Code
 .vscode
+
+server/coverage
