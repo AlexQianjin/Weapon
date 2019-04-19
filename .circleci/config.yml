@@ -6,7 +6,8 @@ jobs:
      - checkout 
 
      # build image
-     - run: |         
+     - run: |
+         echo -e "NODE_ENV=$NODE_ENV \nPORT=$PORT \nMONGOLAB_URI=$MONGOLAB_URI" >> .env         
          docker info
          docker build -t nodeapp -f Dockerfile .
      # deploy the image
