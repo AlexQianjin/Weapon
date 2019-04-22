@@ -5,6 +5,11 @@ jobs:
    steps:
      - checkout 
 
+     # build front-end
+     - run: |
+         docker info
+         docker run --rm --volume="$PWD:/usr/src/app" -w /usr/src/app -it node:11.14.0-alpine /bin/sh -c "npm install && npm run build && cp -r build ../server"
+
      # build image
      - run: |
          echo -e "NODE_ENV=$NODE_ENV \nPORT=$PORT \nMONGOLAB_URI=$MONGOLAB_URI" >> .env         

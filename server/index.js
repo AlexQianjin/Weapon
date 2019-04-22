@@ -14,7 +14,7 @@ var app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(bodyparser.json());
-app.use(express.static(path.join(__dirname, '../', 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 console.log('process.env.NODE_ENV = ' + process.env.NODE_ENV);
 console.log(`environment from express: ${app.get('env')}`);
